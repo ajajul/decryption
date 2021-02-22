@@ -11,8 +11,26 @@ class DecryptMessage(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            message = serializer.decrypt_message()
-            response = {"DecryptedMessage": message}
+            decrypted_data = serializer.decrypt_message()
+            response = {
+                "DecryptedMessage": decrypted_data.data
+            }
+            response_status = status.HTTP_200_OK
+        else:
+            response = serializer.errors
+            response_status = status.HTTP_400_BAD_REQUEST
+        return Response(response, status=response_status)
+
+
+
+class encryptMessage(APIView):
+    serializer_class = serializers.encryptMessageSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            encrypted_data = serializer.encrypt_message()
+            response = encrypted_data
             response_status = status.HTTP_200_OK
         else:
             response = serializer.errors

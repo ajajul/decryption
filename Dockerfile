@@ -19,7 +19,7 @@ RUN gpg2 --list-keys
 # COPY ${HOME}/.gnupg/private.asc /root/.gnupg
 # COPY ${HOME}/.gnupg/public.gpg /root/.gnupg
 
-RUN echo "$LAUNCHPAD_GPG_PRIVATE_KEY" > /root/.gnupg/private.asc
+RUN echo "$LAUNCHPAD_GPG_PRIVATE_KEY" > /root/.gnupg/private.gpg
 RUN echo "$LAUNCHPAD_GPG_PUBLIC_KEY" > /root/.gnupg/public.gpg
 
 
@@ -43,6 +43,7 @@ COPY ./entrypoint.sh entrypoint.sh.raw
 #     CELERY_BROKER_URL='redis://redis:6379' \
 #     CELERY_RESULT_BACKEND='django-db'
 
+RUN python manage.py collectstatic
 
 EXPOSE 7000
 ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]

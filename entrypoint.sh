@@ -13,6 +13,6 @@ log() { printf "%s\n" "$*" >&2; }
 PYTHON="${PYTHON:-/usr/bin/env python}"
 MANAGE="${MANAGE:-$PYTHON manage.py}"
 
-cd /app/code
+cd /app
 
 uwsgi --ini /app/uwsgi.ini

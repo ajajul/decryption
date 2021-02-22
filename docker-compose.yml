@@ -9,6 +9,6 @@ services:
     build: .
     container_name: web
     volumes:
-      - "./code:/app/code"
+      - "./:/app/"
     ports:
       - "7000:7000"
