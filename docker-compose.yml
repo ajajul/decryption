@@ -1,0 +1,14 @@
+#This tells Docker how to run our Docker container.
+
+# most recent version of Compose which is “3”
+version: '3'
+
+services:
+  web:
+    command: serve
+    build: .
+    container_name: web
+    volumes:
+      - "./code:/app/code"
+    ports:
+      - "7000:7000"
